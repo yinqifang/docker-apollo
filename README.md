@@ -29,7 +29,7 @@ Apollo（阿波罗）是携程框架部门研发的开源配置管理中心，�
         * apollo-adminservice-dev：测试环境admin service
     * portal
         * apollo-portal-prd：生产环境portal
-![](https://github.com/yinqifang/mushroom/blob/master/apollo/ApolloWithDockerStructure.png)
+![](https://github.com/yinqifang/docker-apollo/blob/master/ApolloWithDockerStructure.png)
 # 3. 下载源码
 个人推荐采用下载源码的方式构建，遇到问题还可以翻翻源码查原因。<br>
 地址：https://github.com/ctripcorp/apollo <br>
