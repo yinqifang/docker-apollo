@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+    mysql-apollo-config-dev:
+        image: mushroom/mysql-apollo-config-dev
+        build:
+            context: ./mysql/apollo/config-db/dev
+            dockerfile: Dockerfile
+        ports:
+            - "3306:3306"
+        hostname: mysql-apollo-config-dev
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.2.1
+    mysql-apollo-config-prod:
+        image: mushroom/mysql-apollo-config-prod
+        build:
+            context: ./mysql/apollo/config-db/prod
+            dockerfile: Dockerfile
+        ports:
+            - "3307:3306"
+        hostname: mysql-apollo-config-prod
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.2.2
+    mysql-apollo-portal-prod:
+        image: mushroom/mysql-apollo-portal-prod
+        build:
+            context: ./mysql/apollo/portal-db/prod
+            dockerfile: Dockerfile
+        ports:
+            - "3309:3306"
+        hostname: mysql-apollo-portal-prod
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.2.3
+
+networks:
+    mushroom_network:
+        ipam:
+            config:
+                - subnet: 172.20.0.0/16

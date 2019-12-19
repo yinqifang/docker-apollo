@@ -1,0 +1,76 @@
+version: "3"
+
+services:
+    apollo-configservice-prd:
+        image: mushroom/apollo-configservice-prd
+        build:
+            context: ./apollo/configservice
+            dockerfile: ./prd/Dockerfile
+        container_name: apollo-configservice-prd
+        hostname: apollo-configservice-prd
+        ports:
+            - 8180:8080
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.3.11
+    apollo-configservice-dev:
+        image: mushroom/apollo-configservice-dev
+        build:
+            context: ./apollo/configservice
+            dockerfile: ./dev/Dockerfile
+        container_name: apollo-configservice-dev
+        hostname: apollo-configservice-dev
+        ports:
+            - 8181:8080
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.3.12
+    apollo-adminservice-prd:
+        image: mushroom/apollo-adminservice-prd
+        build:
+            context: ./apollo/adminservice
+            dockerfile: ./prd/Dockerfile
+        depends_on:
+          - apollo-configservice-prd
+        container_name: apollo-adminservice-prd
+        hostname: apollo-adminservice-prd
+        ports:
+            - 8190:8090
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.3.21
+    apollo-adminservice-dev:
+        image: mushroom/apollo-adminservice-dev
+        build:
+            context: ./apollo/adminservice
+            dockerfile: ./dev/Dockerfile
+        depends_on:
+          - apollo-configservice-dev
+        container_name: apollo-adminservice-dev
+        hostname: apollo-adminservice-dev
+        ports:
+            - 8191:8090
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.3.22
+    apollo-portal-prd:
+        image: mushroom/apollo-portal-prd
+        build:
+            context: ./apollo/portal
+            dockerfile: ./prd/Dockerfile
+        depends_on:
+          - apollo-adminservice-prd
+          - apollo-adminservice-dev
+        container_name: apollo-portal-prd
+        hostname: apollo-portal-prd
+        ports:
+            - 8171:8070
+        networks:
+            mushroom_network:
+                ipv4_address: 172.20.3.31
+
+networks:
+    mushroom_network:
+        ipam:
+            config:
+                - subnet: 172.20.0.0/16

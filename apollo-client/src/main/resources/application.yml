@@ -1,0 +1,7 @@
+server:
+    port: 8080
+apollo:
+#    meta: http://apollo-portal-dev:8080
+    cacheDir: /Users/chris/tmp/apollo/cache
+app:
+    id: 9527
